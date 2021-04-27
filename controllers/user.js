@@ -5,6 +5,14 @@ import UserModal from "../models/user.js";
 
 const secret = 'test';
 
+export const ping = async (req, res) => {
+  try {    
+    res.status(200).json({ result: "pong" });
+  } catch (err) {
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
 export const signin = async (req, res) => {
   const { email, password } = req.body;
 
