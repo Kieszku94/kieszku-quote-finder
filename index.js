@@ -5,6 +5,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 import userRoutes from './routes/user.js';
+import searchRoutes from './routes/search.js'
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 app.use('/user', userRoutes);
+app.use('/search', searchRoutes)
 
 app.get('/', (req,res) => {
     res.send('Welcome to Quote Finder');
