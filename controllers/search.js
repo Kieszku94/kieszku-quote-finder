@@ -6,7 +6,7 @@ export const search = (req, res) => {
         const {quote} = req.body;
         console.log(quote);
 
-        let temp = {authors: []};
+        let bookResult = {};
 
         superagent.get("https://content-books.googleapis.com/books/v1/volumes")
         .query({ key:"AIzaSyAa8yy0GdcGPHdtD083HiGGx_S0vMPScDM", q: quote })
@@ -15,10 +15,15 @@ export const search = (req, res) => {
         .then(resp => {
             console.log(resp.body.items[0]);
             console.log(resp.body.items[0].volumeInfo.authors);
-            temp.authors = resp.body.items[0].volumeInfo.title;
-            console.log(temp.authors)
+            
+            bookResult.title = resp.body.items[0].volumeInfo.title;
+            bookResult.subtitle = resp.body.items[0].volumeInfo.subtitle;
+            bookResult.authors = resp.body.items[0].volumeInfo.authors;
+            bookResult.thumbnail = resp.body.items[0].volumeInfo.imageLinks.thumbnail;
+            
+            console.log(bookResult)
 
-            res.status(200).json({ result: temp});
+            res.status(200).json({ result: bookResult});
         })
 
     } catch (error) {
